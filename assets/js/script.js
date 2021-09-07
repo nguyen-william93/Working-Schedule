@@ -1,4 +1,47 @@
 
+
+var displaySaveTask = function(task, hour){
+    var task = task;
+    $(".hour").each(function(){
+        if($(this).text() === hour){
+            $(this).siblings("textarea").text(task);
+        }
+    })
+}
+var saveData = function(task, hour){
+    //load pre-existing data;
+    var userData = JSON.parse(localStorage.getItem("schedule")) || []
+    if (task !== ""){
+        userObj = {
+            task: task,
+            hour: hour
+        }
+        userData.push(userObj);
+        window.localStorage.setItem("schedule", JSON.stringify(userData))
+    }
+    
+}
+
+var loadData = function(){
+    var tasks = JSON.parse(localStorage.getItem("schedule"));
+
+    //looping over each time zone
+    $.each(tasks, function(list, arr){
+        displaySaveTask(arr.task, arr.hour);
+    })
+};
+
 $(document).ready(function(){
-    $("#currentDay").text(moment().format("MMMM DD YYYY"));
+    var interval = setInterval(function(){
+        $("#currentDay").text(moment().format("MMMM DD YYYY, h:mm:ss a"));
+    },1000);
+    loadData();
+
+    $(".saveBtn").on("click", function(){
+        var userInput = $(this).siblings("textarea").val().trim();
+        var hourSpan = $(this).siblings(".hour").text().trim();
+        saveData(userInput, hourSpan)
+    })
 })
+
+
