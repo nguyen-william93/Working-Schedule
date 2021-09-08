@@ -1,13 +1,4 @@
 
-
-var displaySaveTask = function(task, hour){
-    var task = task;
-    $(".hour").each(function(){
-        if($(this).text() === hour){
-            $(this).siblings("textarea").text(task);
-        }
-    })
-}
 var saveData = function(task, hour){
     //load pre-existing data;
     var userData = JSON.parse(localStorage.getItem("schedule")) || []
@@ -27,14 +18,28 @@ var loadData = function(){
 
     //looping over each time zone
     $.each(tasks, function(list, arr){
-        displaySaveTask(arr.task, arr.hour);
+        displaySavedTask(arr.task, arr.hour);
     })
 };
 
+var displaySavedTask = function(task, hour){
+    var task = task;
+    $(".hour").each(function(){
+        if($(this).text() === hour){
+            $(this).siblings("textarea").text(task);
+        }
+    })
+}
+
+//running the function on the page
+//set interval to update the clock every second
+//load the any save data
+//logic for the save icon/button
 $(document).ready(function(){
     var interval = setInterval(function(){
         $("#currentDay").text(moment().format("MMMM DD YYYY, h:mm:ss a"));
     },1000);
+
     loadData();
 
     $(".saveBtn").on("click", function(){
