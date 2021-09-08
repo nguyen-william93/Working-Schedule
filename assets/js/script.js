@@ -33,9 +33,9 @@ var displaySavedTask = function(task, hour){
 
 //continuously checking the time against our time block
 var checkTime = function(){
-    var currentTime = moment().hour(); //using momemt.js to obtain military time. 
-    $(".hour").each(function(){
-        var timeBlock = parseInt($(this).text());
+    var currentTime = moment().hour(); //using momemt.js to obtain military time.
+    $("div .hour").each(function(){
+        var timeBlock = parseInt($(this).attr("id"));
         if (currentTime > timeBlock){
             $(this).siblings("textarea").addClass("past");
         } else if (currentTime < timeBlock){
