@@ -54,7 +54,6 @@ $(document).ready(function(){
     $("#currentDay").text(moment().format("MMMM DD YYYY, h:mm:ss a")); 
     var interval = setInterval(function(){
         $("#currentDay").text(moment().format("MMMM DD YYYY, h:mm:ss a")); 
-        console.log("1");
     }, 1000);
 
     //check the time and add the correct color and display the screen base on any saved data
